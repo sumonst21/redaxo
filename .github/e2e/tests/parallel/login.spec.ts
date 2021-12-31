@@ -8,15 +8,15 @@ const testItems = [
     },
 ]
 
-test.use({ storageState: undefined }); // do not use signed-in state from 'storageState.json'
+test.use({storageState: undefined}); // do not use signed-in state from 'storageState.json'
 
 test.describe.parallel('All', () => {
     for (const item of testItems) {
 
         test(`${item.name}`, async ({page, browserName}, testInfo) => {
-            // await gotoPage(page, browserName, `${item.url}`);
-            // await page.locator('.rex-background--ready').waitFor(); // wait for bg image
-            // await matchPageSnapshot(page, `${testInfo.title}`);
+            await gotoPage(page, browserName, `${item.url}`);
+            await page.locator('.rex-background--ready').waitFor({state: 'attached'}); // wait for bg image
+            await matchPageSnapshot(page, `${testInfo.title}`);
         });
     }
 });
