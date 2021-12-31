@@ -1,4 +1,4 @@
-import {test} from '@playwright/test';
+import {expect, test} from '@playwright/test';
 import {gotoPage, matchPageSnapshot} from "../../lib";
 
 test(`safemode`, async ({page, browserName}, testInfo) => {

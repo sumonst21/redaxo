@@ -1,9 +1,10 @@
-import {test} from '@playwright/test';
+import {expect, test} from '@playwright/test';
 import {gotoPage, matchPageSnapshot} from "../../lib";
 
 test(`debugmode`, async ({page, browserName}, testInfo) => {
     // enable debug mode
     await gotoPage(page, browserName, `?page=system/settings`);
+    await expect(page.locator('body')).not.toHaveClass(/rex-is-debugmode/); // fail fast
     page.on('dialog', dialog => dialog.accept()); // accept confirm dialogs
     await page.click('.btn-debug-mode');
     await page.locator('.alert-success').waitFor(); // wait for success message

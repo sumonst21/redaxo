@@ -1,10 +1,12 @@
-import {test} from '@playwright/test';
+import {expect, test} from '@playwright/test';
 import {gotoPage, matchPageSnapshot} from "../../lib";
 
 test(`impersonate`, async ({page, browserName}, testInfo) => {
     // impersonate
     await gotoPage(page, browserName, `?page=users/users`);
-    await page.click('[href*="?page=users/users&_impersonate=2"]');
+    const userLocator = await page.locator('[href*="?page=users/users&_impersonate=2"]');
+    await expect(userLocator).toBeVisible(); // fail fast
+    await userLocator.click();
     await page.locator('.rex-is-impersonated').waitFor({state: 'attached'});
 
     // snap index page

@@ -1,9 +1,11 @@
-import {test} from '@playwright/test';
+import {expect, test} from '@playwright/test';
 import {gotoPage, matchPageSnapshot} from "../../lib";
+import {selectors} from "playwright";
 
 test(`customizer`, async ({page, browserName}, testInfo) => {
     // enable customizer
     await gotoPage(page, browserName, `?page=packages`);
+    await expect(page.locator('#package-be_style-customizer')).toHaveClass(/rex-package-not-installed/); // fail fast
     await page.click('[href*="&package=be_style/customizer&function=install"]');
     await page.locator('.alert-success').waitFor(); // wait for success message
 
