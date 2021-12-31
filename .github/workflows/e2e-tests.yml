@@ -86,7 +86,7 @@ jobs:
                 # run e2e tests, see package.json for details.
                 # check for modified (M) and untracked (??) files afterwards
                 run: |
-                    npm run test --prefix=${{ env.e2e-working-path }} --shard=${{ matrix.shard }} -- ./tests/parallel/
+                    npm run test --prefix=${{ env.e2e-working-path }} -- --shard=${{ matrix.shard }} ./tests/parallel/
                     if [[ -n $(git status -s -uall ${{ env.snapshot_files_pattern }} | grep "^ M\|^??") ]]; then
                         echo "has_changed_files=true" >> $GITHUB_ENV
                         exit 1;
@@ -178,7 +178,7 @@ jobs:
                 # run e2e tests, see package.json for details.
                 # check for modified (M) and untracked (??) files afterwards
                 run: |
-                    npm run test --prefix=${{ env.e2e-working-path }} --workers=1 -- ./tests/serial/
+                    npm run test --prefix=${{ env.e2e-working-path }} -- --workers=1 ./tests/serial/
                     if [[ -n $(git status -s -uall ${{ env.snapshot_files_pattern }} | grep "^ M\|^??") ]]; then
                         echo "has_changed_files=true" >> $GITHUB_ENV
                         exit 1;
@@ -275,7 +275,7 @@ jobs:
                 # run e2e tests, see package.json for details.
                 # check for modified (M) and untracked (??) files afterwards
                 run: |
-                    npm run test --prefix=${{ env.e2e-working-path }} --workers=1 -- ./tests/setup/
+                    npm run test --prefix=${{ env.e2e-working-path }} -- --workers=1 ./tests/setup/
                     if [[ -n $(git status -s -uall ${{ env.snapshot_files_pattern }} | grep "^ M\|^??") ]]; then
                         echo "has_changed_files=true" >> $GITHUB_ENV
                         exit 1;
